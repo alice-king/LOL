@@ -165,8 +165,14 @@ static int docall (lua_State *L, int narg, int nres) {
   return status;
 }
 
+static void print_lol_version (void) {
+  lua_writestring(LOL_COPYRIGHT, strlen(LOL_COPYRIGHT));
+  lua_writeline();
+}
 
 static void print_version (void) {
+  lua_writestring(LOL_COPYRIGHT, strlen(LOL_COPYRIGHT));
+  lua_writeline();
   lua_writestring(LUA_COPYRIGHT, strlen(LUA_COPYRIGHT));
   lua_writeline();
 }
@@ -580,7 +586,7 @@ static void l_print (lua_State *L) {
   int n = lua_gettop(L);
   if (n > 0) {  /* any result to be printed? */
     luaL_checkstack(L, LUA_MINSTACK, "too many results to print");
-    lua_getglobal(L, luaS_print);
+    lua_getglobal(L, luaBS_print);
     lua_insert(L, 1);
     if (lua_pcall(L, n, 0, 0) != LUA_OK)
       l_message(progname, lua_pushfstring(L, "error calling 'print' (%s)",
@@ -651,7 +657,7 @@ static int pmain (lua_State *L) {
     doREPL(L);  /* do read-eval-print loop */
   else if (script < 1 && !(args & (has_e | has_v))) { /* no active option? */
     if (lua_stdin_is_tty()) {  /* running in interactive mode? */
-      print_version();
+      print_lol_version();
       doREPL(L);  /* do read-eval-print loop */
     }
     else dofile(L, NULL);  /* executes stdin as a file */
