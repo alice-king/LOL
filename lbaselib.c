@@ -7,6 +7,8 @@
 #define lbaselib_c
 #define LUA_LIB
 
+#include "lol.h"
+
 #include "lprefix.h"
 
 
@@ -504,29 +506,29 @@ static int luaB_tostring (lua_State *L) {
 
 
 static const luaL_Reg base_funcs[] = {
-  {"assert", luaB_assert},
-  {"collectgarbage", luaB_collectgarbage},
-  {"dofile", luaB_dofile},
-  {"error", luaB_error},
-  {"getmetatable", luaB_getmetatable},
-  {"ipairs", luaB_ipairs},
-  {"loadfile", luaB_loadfile},
-  {"load", luaB_load},
-  {"next", luaB_next},
-  {"pairs", luaB_pairs},
-  {"pcall", luaB_pcall},
-  {"print", luaB_print},
-  {"warn", luaB_warn},
-  {"rawequal", luaB_rawequal},
-  {"rawlen", luaB_rawlen},
-  {"rawget", luaB_rawget},
-  {"rawset", luaB_rawset},
-  {"select", luaB_select},
-  {"setmetatable", luaB_setmetatable},
-  {"tonumber", luaB_tonumber},
-  {"tostring", luaB_tostring},
-  {"type", luaB_type},
-  {"xpcall", luaB_xpcall},
+  {luaS_assert, luaB_assert},
+  {luaS_collectgarbage, luaB_collectgarbage},
+  {luaS_dofile, luaB_dofile},
+  {luaS_error, luaB_error},
+  {luaS_getmetatable, luaB_getmetatable},
+  {luaS_ipairs, luaB_ipairs},
+  {luaS_loadfile, luaB_loadfile},
+  {luaS_load, luaB_load},
+  {luaS_next, luaB_next},
+  {luaS_pairs, luaB_pairs},
+  {luaS_pcall, luaB_pcall},
+  {luaS_print, luaB_print},
+  {luaS_warn, luaB_warn},
+  {luaS_rawequal, luaB_rawequal},
+  {luaS_rawlen, luaB_rawlen},
+  {luaS_rawget, luaB_rawget},
+  {luaS_rawset, luaB_rawset},
+  {luaS_select, luaB_select},
+  {luaS_setmetatable, luaB_setmetatable},
+  {luaS_tonumber, luaB_tonumber},
+  {luaS_tostring, luaB_tostring},
+  {luaS_type, luaB_type},
+  {luaS_xpcall, luaB_xpcall},
   /* placeholders */
   {LUA_GNAME, NULL},
   {"_VERSION", NULL},

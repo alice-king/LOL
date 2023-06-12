@@ -1,0 +1,60 @@
+name: build
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: make
+      run: make linux
+
+    - name: test
+      run: make test
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux
+        path: lol
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: make
+      run: make macos
+
+    - name: test
+      run: make test
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: macos
+        path: lol
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: make
+      run: make mingw
+
+    - name: test
+      run: make test
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows
+        path: lol.exe

@@ -70,12 +70,12 @@ LOCAL = $(TESTS) $(CWARNS)
 
 
 # enable Linux goodies
-MYCFLAGS= $(LOCAL) -std=c99 -DLUA_USE_LINUX -DLUA_USE_READLINE
-MYLDFLAGS= $(LOCAL) -Wl,-E
-MYLIBS= -ldl -lreadline
+MYCFLAGS=
+MYLDFLAGS=
+MYLIBS=
 
 
-CC= gcc
+CC= gcc -std=gnu99
 CFLAGS= -Wall -O2 $(MYCFLAGS) -fno-stack-protector -fno-common -march=native
 AR= ar rc
 RANLIB= ranlib
@@ -96,7 +96,7 @@ AUX_O=	lauxlib.o
 LIB_O=	lbaselib.o ldblib.o liolib.o lmathlib.o loslib.o ltablib.o lstrlib.o \
 	lutf8lib.o loadlib.o lcorolib.o linit.o
 
-LUA_T=	lua
+LUA_T=	lol
 LUA_O=	lua.o
 
 
@@ -137,6 +137,18 @@ echo:
 	@echo "DL = $(DL)"
 
 $(ALL_O): makefile ltests.h
+
+linux:
+	$(MAKE) $(ALL) MYCFLAGS="-DLUA_USE_LINUX -DLUA_USE_READLINE" MYLIBS="-Wl,-E -ldl -lreadline"
+
+macos:
+	$(MAKE) $(all) MYCFLAGS="-DLUA_USE_MACOSX -DLUA_USE_READLINE" MYLIBS="-lreadline"
+
+mingw:
+	$(MAKE) "LUA_T=lol.exe" lol.exe
+
+test:
+	./$(LUA_T) -v
 
 # DO NOT EDIT
 # automatically made with 'gcc -MM l*.c'

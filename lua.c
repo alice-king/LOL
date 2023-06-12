@@ -6,6 +6,8 @@
 
 #define lua_c
 
+#include "lol.h"
+
 #include "lprefix.h"
 
 
@@ -578,7 +580,7 @@ static void l_print (lua_State *L) {
   int n = lua_gettop(L);
   if (n > 0) {  /* any result to be printed? */
     luaL_checkstack(L, LUA_MINSTACK, "too many results to print");
-    lua_getglobal(L, "print");
+    lua_getglobal(L, luaS_print);
     lua_insert(L, 1);
     if (lua_pcall(L, n, 0, 0) != LUA_OK)
       l_message(progname, lua_pushfstring(L, "error calling 'print' (%s)",
